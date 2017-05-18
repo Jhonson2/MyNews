@@ -95,7 +95,22 @@ public class WelcomeActivity extends AppCompatActivity {
                 finish();
             }
         }, 2000);
+
+        // 如果是第一次运行  就显示引导页
+        if (SPUtil.getIsFirstRun(WelcomeActivity.this)) {
+            startActivity(new Intent(WelcomeActivity.this, GuideActivity.class));
+            SPUtil.setIsFristRun(WelcomeActivity.this, false);
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, 2000);
+        }
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -139,9 +154,8 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
-
     private void delayedHide(int delayMillis) {
-            mHideHandler.removeCallbacks(mHideRunnable);
-            mHideHandler.postDelayed(mHideRunnable, delayMillis);
-          }
+        mHideHandler.removeCallbacks(mHideRunnable);
+        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
 }

@@ -1,149 +1,61 @@
+
 package com.example.dellc.mynews;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
-/**
- * Created by dellc on 2017/5/18.
- */
+public class GuideActivity extends Activity {
+    private ViewFlipper guide_flipper;
+    private CustomGestureDetectorListener mDetectorListener;
+    private GestureDetector mGestureDetector;
+    private TextView txtStart;
 
-public class GuideActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        private static final boolean AUTO_HIDE = true;
+        setContentView(R.layout.activity_guide);
 
-        private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+        guide_flipper = (ViewFlipper) findViewById(R.id.guide_flipper);
+        mDetectorListener = new CustomGestureDetectorListener();
+        mGestureDetector = new GestureDetector(GuideActivity.this, mDetectorListener);
 
-        private static final int UI_ANIMATION_DELAY = 300;
-        private final Handler mHideHandler = new Handler();
-        private View mContentView;
-        private final Runnable mHidePart2Runnable = new Runnable() {
-            @SuppressLint("InlinedApi")
+        txtStart = (TextView) findViewById(R.id.txt_start);
+        txtStart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            public void onClick(View v) {
+                startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                finish();
             }
-        };
+        });
+    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
 
-        private View mControlsView;
-        private final Runnable mShowPart2Runnable = new Runnable() {
-            @Override
-            public void run() {
-                // Delayed display of UI elements
-                ActionBar actionBar = getSupportActionBar();
-                if (actionBar != null) {
-                    actionBar.show();
-                }
-                mControlsView.setVisibility(View.VISIBLE);
-            }
-        };
-
-        private boolean mVisible;
-        private final Runnable mHideRunnable = new Runnable() {
-            @Override
-            public void run() {
-                hide();
-            }
-        };
-
-
-        private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (AUTO_HIDE) {
-                    delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                }
-                return false;
-            }
-        };
-
+    class CustomGestureDetectorListener extends GestureDetector.SimpleOnGestureListener {
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_guide);
-
-            mVisible = true;
-            mControlsView = findViewById(R.id.fullscreen_content_controls);
-            mContentView = findViewById(R.id.fullscreen_content);
-
-            mContentView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toggle();
-                }
-            });
-
-            findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-
-          /*  //2秒后跳转到MainActivity
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(com.example.dellc.mynews.WelcomeActivity.this, MainActivity.class));
-                    finish();
-                }
-            }, 2000);*/
-        }
-
-        @Override
-        protected void onPostCreate(Bundle savedInstanceState) {
-            super.onPostCreate(savedInstanceState);
-            delayedHide(100);
-
-        }
-
-        private void toggle() {
-            if (mVisible) {
-                hide();
-            } else {
-                show();
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (e1.getX() > e2.getX()) { //如果初始触点的X坐标比最终触点的X坐标大表示向左滑动
+                guide_flipper.showNext();
             }
-        }
 
-        private void hide() {
-            // Hide UI first
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.hide();
+            if (e1.getX() < e2.getX()) { //如果初始触点的X坐标比最终触点的X坐标小表示向右滑动
+                guide_flipper.showPrevious();
             }
-            mControlsView.setVisibility(View.GONE);
-            mVisible = false;
 
-            // Schedule a runnable to remove the status and navigation bar after a delay
-            mHideHandler.removeCallbacks(mShowPart2Runnable);
-            mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
-        }
-
-        @SuppressLint("InlinedApi")
-        private void show() {
-            // Show the system bar
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-            mVisible = true;
-
-            // Schedule a runnable to display UI elements after a delay
-            mHideHandler.removeCallbacks(mHidePart2Runnable);
-            mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
-        }
-
-
-
-        private void delayedHide(int delayMillis) {
-            mHideHandler.removeCallbacks(mHideRunnable);
-            mHideHandler.postDelayed(mHideRunnable, delayMillis);
+            return super.onFling(e1, e2, velocityX, velocityY);
         }
     }
 
 
-
+}
