@@ -7,9 +7,9 @@
     android:orientation="vertical"
     tools:context="com.example.dellc.mynews.MainActivity">
 
-    <TextView
-        android:id="@+id/txt_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/news_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="第一页"/>
+        android:background="@android:color/holo_blue_light"/>
 </LinearLayout>
