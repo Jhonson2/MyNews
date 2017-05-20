@@ -11,6 +11,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int TOP = 1;
+    private static final int YULE = 2;
+    private static final int TIYU = 3;
+    private static final int KEJI = 4;
+    private static final int SHEHUI = 5;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private MyPageAdapter mPageAdapter;
@@ -42,16 +47,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFragmentArrayList() {
         NewsFragment fa = new NewsFragment();
-        fa.setTxtContent("头条页面");
+      //  fa.setTxtContent("头条页面");
+        Bundle bundle=new Bundle();
+        bundle.putInt("NEWSTYPE",1);
+        fa.setArguments(bundle);
 
         NewsFragment fb = new NewsFragment();
-        fb.setTxtContent("页面");
+       // fb.setTxtContent("娱乐页面");
+        Bundle bundle2=new Bundle();
+        bundle2.putInt("NEWSTYPE",2);
+        fb.setArguments(bundle2);
 
         NewsFragment fc = new NewsFragment();
-        fc.setTxtContent("体育页面");
+      //  fc.setTxtContent("体育页面");
+        Bundle bundle3=new Bundle();
+        bundle3.putInt("NEWSTYPE",3);
+        fc.setArguments(bundle3);
 
         NewsFragment fd = new NewsFragment();
-        fd.setTxtContent("科技页面");
+      //  fd.setTxtContent("科技页面");
+        Bundle bundle4=new Bundle();
+        bundle4.putInt("NEWSTYPE",4);
+        fd.setArguments(bundle4);
 
         mFragmentArrayList.add(fa);
         mFragmentArrayList.add(fb);
