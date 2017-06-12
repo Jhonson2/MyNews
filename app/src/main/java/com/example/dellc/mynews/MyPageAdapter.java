@@ -3,7 +3,6 @@ package com.example.dellc.mynews;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public class MyPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(mFragmentArrayList.size()<position){
+        if(position<mFragmentArrayList.size()){
             return  mFragmentArrayList.get(position);
         }
         return null;

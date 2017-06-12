@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -95,8 +94,10 @@ public class NewsFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                Log.e("AAA", "GET DATA SCCUESS");
                 Gson gson=new Gson();
                 NewsData newsData = gson.fromJson(response.body().string(),NewsData.class);
+                Log.e("AAA", String.valueOf(newsData));
                 mNewsList=newsData.getResult().getData();
                 mHandler.sendEmptyMessage(MSG_GET_NEWS);
             }
