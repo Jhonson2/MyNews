@@ -25,17 +25,16 @@
 
 
         <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity
             android:name=".activity.GuideActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_guide"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme">
+
+        </activity>
 
         <activity
             android:name=".activity.WelcomeActivity"
@@ -46,6 +45,14 @@
 
         <activity android:name=".activity.LoginActivity"></activity>
         <activity android:name=".activity.ReadActivity"></activity>
+
+        <activity android:name=".activity.TopActivity"
+                        android:theme="@style/Theme.Design.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 
