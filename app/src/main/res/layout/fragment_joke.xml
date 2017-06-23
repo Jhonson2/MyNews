@@ -8,8 +8,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.dellc.mynews.activity.MainActivity">
 
-    <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-        android:text="笑话的Fragmet"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_dark"
+        android:id="@+id/joke_view"/>
+
 </LinearLayout>

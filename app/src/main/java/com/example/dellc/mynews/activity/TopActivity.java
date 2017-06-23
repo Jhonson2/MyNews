@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.dellc.mynews.R;
+import com.example.dellc.mynews.adapter.TopAdatper;
 import com.example.dellc.mynews.fragment.JokeFragment;
 import com.example.dellc.mynews.fragment.MainFragment;
 import com.example.dellc.mynews.fragment.MyFragment;

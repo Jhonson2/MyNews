@@ -1,4 +1,4 @@
-package com.example.dellc.mynews.activity;
+package com.example.dellc.mynews.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
