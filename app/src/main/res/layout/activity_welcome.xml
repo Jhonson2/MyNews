@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
-    tools:context="com.example.dellc.mynews.WelcomeActivity">
+    tools:context="com.example.dellc.mynews.activity.WelcomeActivity">
 
         <TextView
             android:id="@+id/fullscreen_content"
